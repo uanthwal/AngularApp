@@ -1,0 +1,26 @@
+<div class="account-list">
+  <ul>
+    <li>
+      <i class="fa fa-search search-icon"></i>
+      <input type="text" [(ngModel)]="searchText" (keyup)="onClickSearch($event)" placeholder="Search" />
+      <i class="fa fa-close clear-icon" (click)="onClickClearSearch()"></i>
+    </li>
+
+    <li *ngIf="!searchText?.length > 0" (click)="onClickSelectAllAccounts()">
+      <i [ngClass]="objectKeys(accountList).length ==  objectKeys(selectedAccounts).length? 'fa fa-check-square-o' : 'fa fa-square-o'"></i>
+      Select All Accounts
+    </li>
+    <li *ngFor="let a of accountList | accountlistfilter:'acctNo,acctCcy':searchText" (click)="onClickAccountInList(a)">
+      <i [ngClass]="a.selected == true ? 'fa fa-check-square-o' : 'fa fa-square-o'"></i> {{a.acctNo
+      }}/{{a.acctCcy}}/{{a.acctProdCode}}
+    </li>
+  </ul>
+  <ul>
+    <li *ngIf="objectKeys(selectedAccounts).length > 0">
+      SELECTED ACCOUNTS:
+    </li>
+    <li *ngFor="let a of objectKeys(selectedAccounts)">
+      {{a}}
+    </li>
+  </ul>
+</div>
